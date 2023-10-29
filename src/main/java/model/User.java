@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 @Entity
 public class User extends AbstractEntity{
+    public void makeReservation(){}
 
     public String getFirstName() {
         return firstName;
