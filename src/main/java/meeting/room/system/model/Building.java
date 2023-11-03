@@ -22,7 +22,7 @@ public class Building extends AbstractEntity {
         return adress;
     }
 
-    public void setAdress(Adress adress) {
+    public void setAddress(Adress adress) {
         this.adress = adress;
     }
 
