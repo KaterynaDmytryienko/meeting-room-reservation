@@ -1,4 +1,4 @@
-package model;
+package meeting.room.system.model;
 
 public enum Roles {
     GUEST,

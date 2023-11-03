@@ -1,8 +1,10 @@
-package model;
+package meeting.room.system.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
+@Table
 public class Adress extends AbstractEntity {
     private String street;
     private int streetNumber;

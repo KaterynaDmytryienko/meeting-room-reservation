@@ -1,6 +1,6 @@
-package dao;
+package meeting.room.system.dao;
 
-import model.User;
+import meeting.room.system.model.User;
 
 public class UserDao extends BaseDao<User> {
     public UserDao() {

@@ -1,9 +1,8 @@
-package dao;
+package meeting.room.system.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceException;
-import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;

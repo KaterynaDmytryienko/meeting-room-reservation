@@ -1,13 +1,17 @@
-package model;
+package meeting.room.system.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 import java.util.Date;
+import java.util.List;
+
 @Entity
+@Table
 public class UserRoles extends AbstractEntity{
-    @ManyToMany
-    private User user;
+    @ManyToMany(mappedBy = "userRoles")
+    private List<User> users;
     private Date startDate;
     private Date endDate;
     public Date getStartDate() {

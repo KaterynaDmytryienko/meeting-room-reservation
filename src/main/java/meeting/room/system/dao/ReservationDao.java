@@ -1,7 +1,6 @@
-package dao;
+package meeting.room.system.dao;
 
-import model.Reservation;
-import model.User;
+import meeting.room.system.model.Reservation;
 
 public class ReservationDao extends BaseDao<Reservation> {
     public ReservationDao() {

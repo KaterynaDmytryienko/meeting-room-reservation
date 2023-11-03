@@ -1,4 +1,4 @@
-package model;
+package meeting.room.system.model;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

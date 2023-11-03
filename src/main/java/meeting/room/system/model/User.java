@@ -1,11 +1,19 @@
-package model;
+package meeting.room.system.model;
 
 import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.List;
 @Entity
+@Table(name = "users")
 public class User extends AbstractEntity{
+    @ManyToMany
+    @JoinTable(
+            name = "user_user_roles",  // Name of the intermediary table
+            joinColumns = @JoinColumn(name = "user_id"), // Column in the intermediary table referring to User
+            inverseJoinColumns = @JoinColumn(name = "user_roles_id") // Column in the intermediary table referring to UserRoles
+    )
+    private List<UserRoles> userRoles;
     public void makeReservation(){}
 
     public String getFirstName() {

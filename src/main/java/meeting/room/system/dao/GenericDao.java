@@ -1,4 +1,4 @@
-package dao;
+package meeting.room.system.dao;
 
 import java.util.Collection;
 import java.util.List;

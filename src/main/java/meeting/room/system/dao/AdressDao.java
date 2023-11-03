@@ -1,6 +1,6 @@
-package dao;
+package meeting.room.system.dao;
 
-import model.Adress;
+import meeting.room.system.model.Adress;
 
 public class AdressDao extends BaseDao<Adress> {
 

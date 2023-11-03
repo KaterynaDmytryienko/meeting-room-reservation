@@ -1,13 +1,22 @@
-package model;
+package meeting.room.system.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 import java.sql.Time;
 import java.sql.Timestamp;
 
-public class Reservation {
+@Entity
+@Table
+public class Reservation extends AbstractEntity{
+    @OneToOne
     private User user;
     private Timestamp reservationTime;
     private Time startTime;
     private Time endTime;
+    @ManyToOne
     private MeetingRoom meetingRoom;
     public User getUser() {
         return user;

@@ -1,8 +1,9 @@
-package model;
+package meeting.room.system.model;
 
 import jakarta.persistence.*;
 
 @Entity
+@Table
 public class MeetingRoom extends AbstractEntity{
 
     private String roomName;

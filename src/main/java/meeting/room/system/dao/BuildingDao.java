@@ -1,6 +1,6 @@
-package dao;
+package meeting.room.system.dao;
 
-import model.Building;
+import meeting.room.system.model.Building;
 
 public class BuildingDao extends BaseDao<Building>{
 
