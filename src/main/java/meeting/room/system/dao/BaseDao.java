@@ -3,16 +3,15 @@ package meeting.room.system.dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceException;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 public class BaseDao<T> implements GenericDao<T> {
-
-
     @PersistenceContext
-    protected EntityManager em;
+    public EntityManager em;
 
     protected final Class<T> type;
 

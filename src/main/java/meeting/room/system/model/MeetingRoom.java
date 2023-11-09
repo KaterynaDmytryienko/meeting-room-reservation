@@ -1,47 +1,33 @@
 package meeting.room.system.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table
+@Getter
+@Setter
 public class MeetingRoom extends AbstractEntity{
 
+    @OneToMany(mappedBy = "meetingRoom")
+    private List<Reservation> reservations;
     private String roomName;
     private int capacity;
     private boolean isAvailable;
     private PrioritizationStatus prioritizationStatus;
 
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public void setRoomName(String roomName) {
+    public MeetingRoom(String roomName, int capacity, boolean isAvailable, PrioritizationStatus prioritizationStatus) {
         this.roomName = roomName;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
         this.capacity = capacity;
-    }
-
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
-
-    public PrioritizationStatus getPrioritizationStatus() {
-        return prioritizationStatus;
-    }
-
-    public void setPrioritizationStatus(PrioritizationStatus prioritizationStatus) {
+        this.isAvailable = isAvailable;
         this.prioritizationStatus = prioritizationStatus;
     }
 
-
+    public MeetingRoom() {
+    }
 }

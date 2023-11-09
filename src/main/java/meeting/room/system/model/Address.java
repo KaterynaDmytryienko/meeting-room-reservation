@@ -1,15 +1,14 @@
 package meeting.room.system.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -17,9 +16,12 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRoles extends AbstractEntity{
-    @ManyToMany(mappedBy = "userRoles")
-    private List<User> users;
-    private Date startDate;
-    private Date endDate;
+public class Address extends AbstractEntity {
+    private String street;
+    private int streetNumber;
+    private String city;
+
+
+    @OneToMany(mappedBy = "address")
+    private Set<Building> buildings;
 }
