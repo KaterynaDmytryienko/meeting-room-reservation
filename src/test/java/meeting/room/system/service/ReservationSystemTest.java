@@ -1,12 +1,10 @@
 package meeting.room.system.service;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import meeting.room.system.dao.ReservationDao;
 import meeting.room.system.model.MeetingRoom;
 import meeting.room.system.model.Reservation;
 import meeting.room.system.model.User;
-import meeting.room.system.service.ReservationSystemService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,8 +20,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class ReservationSystemTest {
     @Autowired
     private ReservationDao reservationDao;
-    @PersistenceContext
-    EntityManager em;
+    @Autowired
+    private ReservationSystemService reservationSystemService;
 
     @Test
     public void approveReservationTest() {
@@ -32,7 +30,7 @@ public class ReservationSystemTest {
         User user = new User();
 
         MeetingRoom meetingRoom = new MeetingRoom();
-        meetingRoom.setRoomName("Stark");
+        meetingRoom.setRoomName("Malibu");
         meetingRoom.setCapacity(2);
         meetingRoom.setAvailable(true);
 
@@ -52,12 +50,11 @@ public class ReservationSystemTest {
 
     @Test
     public void cancelReservationTest() {
-        ;
         Reservation reservation = new Reservation();
         User user = new User();
 
         MeetingRoom meetingRoom = new MeetingRoom();
-        meetingRoom.setRoomName("Stark");
+        meetingRoom.setRoomName("Kate");
         meetingRoom.setCapacity(2);
         meetingRoom.setAvailable(true);
 
@@ -67,15 +64,15 @@ public class ReservationSystemTest {
         user.setDateOfBirth(Date.valueOf("2009-05-04"));
         user.setPassword("12345");
 
-        reservation.setStartTime(LocalDateTime.now());
-        reservation.setEndTime(LocalDateTime.now().plusHours(3));
+        reservation.setStartTime(LocalDateTime.now().plusHours(3));
+        reservation.setEndTime(LocalDateTime.now());
         reservation.setMeetingRoom(meetingRoom);
-        reservation.setReservationTime(LocalDateTime.now());
+        reservation.setReservationTime(LocalDateTime.now().plusHours(5));
         reservation.setUser(user);
 
-        em.persist(reservation);
-
-        em.remove(reservation);
-        assertThat(reservationDao.find(reservation.getId())).isNull();
+        reservationDao.persist(reservation);
+        int reservationID = reservation.getId();
+        reservationSystemService.cancelReservation(reservation);
+        assertThat(reservationDao.find(reservationID)).isNull();
     }
 }

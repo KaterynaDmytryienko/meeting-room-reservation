@@ -4,7 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import meeting.room.system.dao.MeetingRoomDao;
 import meeting.room.system.model.MeetingRoom;
-import meeting.room.system.model.PrioritizationStatus;
+import meeting.room.system.enums.PrioritizationStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,20 +28,20 @@ public class MeetingRoomServiceTest {
     @Transactional
     public void testFindAvailableMeetingRooms() {
 
-        LocalDateTime startTime = LocalDateTime.of(2023, 12, 3, 6, 0);
+        LocalDateTime startTime = LocalDateTime.of(2023, 10, 3, 6, 0);
         LocalDateTime endTime = LocalDateTime.of(2023, 10, 4, 15, 0);
 
         MeetingRoom room1 = createMeetingRoom("Room 1", 10, true, PrioritizationStatus.LOW);
-        MeetingRoom room2 = createMeetingRoom("Room 2", 50, true, PrioritizationStatus.HIGH);
-        MeetingRoom room3 = createMeetingRoom("Room 3", 2, true, PrioritizationStatus.HIGH);
-        em.persist(room1);
-        em.persist(room2);
-        em.persist(room3);
+        MeetingRoom room2 = createMeetingRoom("Room 2", 50, false, PrioritizationStatus.HIGH);
+        MeetingRoom room3 = createMeetingRoom("Room 3", 2, false, PrioritizationStatus.HIGH);
+        meetingRoomDao.persist(room1);
+        meetingRoomDao.persist(room2);
+        meetingRoomDao.persist(room3);
 
         List<MeetingRoom> availableRooms = meetingRoomDao.findAvailableRooms(startTime, endTime);
 
-        assertThat(availableRooms).hasSize(3).extracting(MeetingRoom::getRoomName)
-                .containsExactlyInAnyOrder(room1.getRoomName(), room2.getRoomName(), room3.getRoomName());
+        assertThat(availableRooms).hasSize(1).extracting(MeetingRoom::getRoomName)
+                .containsExactlyInAnyOrder("Room 1");
     }
 
     private MeetingRoom createMeetingRoom(String name, int capacity, boolean isAvailable, PrioritizationStatus status) {

@@ -1,10 +1,9 @@
 package meeting.room.system.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import meeting.room.system.enums.PrioritizationStatus;
 
 import java.util.List;
 

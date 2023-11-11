@@ -1,21 +1,15 @@
 package meeting.room.system.service;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import meeting.room.system.model.MeetingRoom;
 import meeting.room.system.model.Reservation;
-import meeting.room.system.model.Roles;
+import meeting.room.system.enums.Roles;
 import meeting.room.system.model.User;
-import meeting.room.system.service.UserService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

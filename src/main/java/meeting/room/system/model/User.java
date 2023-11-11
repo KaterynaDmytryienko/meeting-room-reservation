@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import meeting.room.system.enums.Roles;
 
 import java.util.Date;
 import java.util.List;
@@ -32,6 +33,4 @@ public class User extends AbstractEntity{
     private List<Roles> roles;
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations;
-
-
 }
