@@ -33,4 +33,5 @@ public class User extends AbstractEntity{
     private List<Roles> roles;
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations;
+    private boolean isBanned = false;
 }

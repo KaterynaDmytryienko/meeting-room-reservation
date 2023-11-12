@@ -8,6 +8,7 @@ import meeting.room.system.dao.UserDao;
 import meeting.room.system.enums.ReservationRules;
 import meeting.room.system.model.MeetingRoom;
 import meeting.room.system.model.Reservation;
+import meeting.room.system.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,8 +46,10 @@ public class ReservationSystemService {
     long hours = duration.toHours();
         if (reservation != null && hours >= ReservationRules.MAX_CANCELLATION_TIME) {
             reservationDao.remove(reservation);
+        } else if (hours < ReservationRules.MAX_CANCELLATION_TIME) {
+            reservation.getUser().setBanned(true);
         }
-    }
+}
 @Transactional
     public void updateReservation(LocalDateTime startTime, LocalDateTime endTime, Reservation reservation, MeetingRoomDao meetingRoomDao) {
         if (!meetingRoomDao.findAvailableRooms(startTime, endTime).isEmpty() && startTime != null & endTime != null) {
