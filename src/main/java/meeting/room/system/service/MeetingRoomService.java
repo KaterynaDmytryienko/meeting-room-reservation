@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -24,4 +25,14 @@ public class MeetingRoomService {
     public List<MeetingRoom> findAvailableMeetingRooms(LocalDateTime startTime, LocalDateTime endTime) {
         return meetingRoomDao.findAvailableRooms(startTime, endTime);
     }
+
+    @Transactional
+    public MeetingRoom create(MeetingRoom meetingRoom) {
+        Objects.requireNonNull(meetingRoom);
+        final MeetingRoom meetingRoom1 = meetingRoom;
+
+        meetingRoomDao.persist(meetingRoom1);
+        return meetingRoom1;
+    }
+
 }

@@ -1,5 +1,6 @@
 package meeting.room.system.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User extends AbstractEntity{
+    @JsonManagedReference
     @ManyToMany
     @JoinTable(
             name = "user_user_roles",
@@ -31,7 +33,14 @@ public class User extends AbstractEntity{
     private String email;
     private Date dateOfBirth;
     private List<Roles> roles;
+
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations;
+
     private boolean isBanned = false;
+
+    public String getIsAdmin() {
+        return "";
+    }
 }

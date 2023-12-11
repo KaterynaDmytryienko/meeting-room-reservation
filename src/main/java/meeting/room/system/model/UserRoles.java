@@ -1,5 +1,6 @@
 package meeting.room.system.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
@@ -18,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRoles extends AbstractEntity{
+    @JsonBackReference
     @ManyToMany(mappedBy = "userRoles")
     private List<User> users;
     private Date startDate;

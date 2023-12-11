@@ -1,7 +1,7 @@
 package meeting.room.system.enums;
 
 public enum PrioritizationStatus{
-    HIGH,
+    HIGH ,
     MEDIUM,
     LOW
 }

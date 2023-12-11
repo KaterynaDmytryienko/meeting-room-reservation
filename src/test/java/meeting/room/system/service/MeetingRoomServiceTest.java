@@ -32,16 +32,16 @@ public class MeetingRoomServiceTest {
         LocalDateTime endTime = LocalDateTime.of(2023, 10, 4, 15, 0);
 
         MeetingRoom room1 = createMeetingRoom("Room 1", 10, true, PrioritizationStatus.LOW);
-        MeetingRoom room2 = createMeetingRoom("Room 2", 50, false, PrioritizationStatus.HIGH);
-        MeetingRoom room3 = createMeetingRoom("Room 3", 2, false, PrioritizationStatus.HIGH);
+        MeetingRoom room2 = createMeetingRoom("Room 2", 50, true, PrioritizationStatus.HIGH);
+        MeetingRoom room3 = createMeetingRoom("Room 3", 2, true, PrioritizationStatus.HIGH);
         meetingRoomDao.persist(room1);
         meetingRoomDao.persist(room2);
         meetingRoomDao.persist(room3);
 
         List<MeetingRoom> availableRooms = meetingRoomDao.findAvailableRooms(startTime, endTime);
 
-        assertThat(availableRooms).hasSize(1).extracting(MeetingRoom::getRoomName)
-                .containsExactlyInAnyOrder("Room 1");
+        assertThat(availableRooms).hasSize(2).extracting(MeetingRoom::getRoomName)
+                .containsExactlyInAnyOrder("Room 2", "Room 3");
     }
 
     private MeetingRoom createMeetingRoom(String name, int capacity, boolean isAvailable, PrioritizationStatus status) {

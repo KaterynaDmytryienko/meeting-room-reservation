@@ -27,12 +27,12 @@ public class ReservationSystemService {
 @Transactional
     public boolean approveReservation(Reservation reservation) {
         Duration duration = Duration.between(LocalDateTime.now(), reservation.getStartTime());
-        long days = duration.toDays();
+        long days_prior_to_reserved_date = duration.toDays();
 
         long reservationHours = Duration.between(reservation.getStartTime(), reservation.getEndTime()).toHours();
 
         if (reservation.getUser() != null && reservation.getReservationTime() != null && reservation.getEndTime() != null &
-                reservation.getMeetingRoom() != null && reservation.getStartTime() != null && days < ReservationRules.MAX_ADVANCE_BOOKING_DAYS
+                reservation.getMeetingRoom() != null && reservation.getStartTime() != null && days_prior_to_reserved_date < ReservationRules.MAX_ADVANCE_BOOKING_DAYS
         && reservationHours >= ReservationRules.MIN_RESERVATION_LENGTH ||
                 reservationHours <=  ReservationRules.MAX_RESERVATION_LENGTH) {
 
