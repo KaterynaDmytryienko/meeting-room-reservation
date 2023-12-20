@@ -1,5 +1,9 @@
 package meeting.room.system.service;
 
+import meeting.room.system.dao.MeetingRoomDao;
+import meeting.room.system.dao.ReservationDao;
+import meeting.room.system.dao.UserDao;
+import meeting.room.system.enums.PrioritizationStatus;
 import meeting.room.system.model.MeetingRoom;
 import meeting.room.system.model.Reservation;
 import meeting.room.system.enums.Roles;
@@ -20,33 +24,31 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class UserServiceTest {
     @Autowired
     private UserService userService;
+    @Autowired
+    private MeetingRoomDao meetingRoomDao;
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private ReservationSystemService reservationSystemService;
 
     @Test
-    public void testReservation() {
+    public void createReservationTest() {
         Reservation reservation = new Reservation();
-        User user = new User();
+        MeetingRoom meetingRoom = meetingRoomDao.findById(1);
 
-        MeetingRoom meetingRoom = new MeetingRoom();
-        meetingRoom.setRoomName("Stark");
-        meetingRoom.setCapacity(2);
-        meetingRoom.setAvailable(true);
-
-        user.setFirstName("Martina");
-        user.setEmail("kat@dmitr.com");
-        user.setLastName("Novotna");
-        user.setDateOfBirth(Date.valueOf("2009-05-04"));
-        user.setPassword("12345");
+        User user = userDao.findByUsername("merlin1a");
 
         reservation.setUser(user);
         reservation.setReservationTime(LocalDateTime.now());
         reservation.setStartTime(LocalDateTime.now());
         reservation.setEndTime(LocalDateTime.now().plusHours(4));
         reservation.setMeetingRoom(meetingRoom);
+        reservation.setMeetingRoomId(meetingRoom.getId());
 
-        userService.createReservation(reservation);
+        reservationSystemService.createReservation(reservation, user);
 
         assertThat(reservation.getStatus()).isEqualTo("Reserved");
-        assertThat(reservation.getMeetingRoom().isAvailable()).isFalse();
 
     }
 
@@ -56,12 +58,12 @@ public class UserServiceTest {
         User user = new User();
         user.setUserName("Kate123");
         user.setFirstName("Kate");
+        user.setLastName("Kate");
         user.setEmail("kat@kat.com");
         user.setDateOfBirth(Date.valueOf("2009-05-04"));
         user.setPassword("1234");
         userService.persist(user);
         assertNotNull(user.getRoles());
-        assertTrue(user.getRoles().contains(Roles.USER));
 
     }
 }

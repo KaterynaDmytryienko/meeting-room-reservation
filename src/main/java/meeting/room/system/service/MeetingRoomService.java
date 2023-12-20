@@ -26,8 +26,9 @@ public class MeetingRoomService {
         return meetingRoomDao.findAvailableRooms(startTime, endTime);
     }
 
+
     @Transactional
-    public MeetingRoom create(MeetingRoom meetingRoom) {
+    public MeetingRoom createMeetingRoom(MeetingRoom meetingRoom) {
         Objects.requireNonNull(meetingRoom);
         final MeetingRoom meetingRoom1 = meetingRoom;
 

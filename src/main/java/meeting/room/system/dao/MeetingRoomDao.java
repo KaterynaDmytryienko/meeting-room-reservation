@@ -21,7 +21,7 @@ public class MeetingRoomDao extends BaseDao<MeetingRoom> {
         //from highest to lowest
         for (PrioritizationStatus status : PrioritizationStatus.values()) {
             TypedQuery<MeetingRoom> query = em.createQuery(
-                    "SELECT m FROM MeetingRoom m WHERE m.prioritizationStatus = :status AND m.isAvailable = true AND NOT EXISTS (" +
+                    "SELECT m FROM MeetingRoom m WHERE m.prioritizationStatus = :status AND m.isAvailable = 1 AND NOT EXISTS (" +
                             "SELECT r FROM Reservation r WHERE " +
                             "r.meetingRoom = m AND " +
                             "(r.startTime < :endTime AND r.endTime > :startTime)" +
@@ -37,5 +37,18 @@ public class MeetingRoomDao extends BaseDao<MeetingRoom> {
         }
 
         return availableRooms;
+    }
+
+    public List<MeetingRoom> getAllMeetingRooms(){
+        return em.createQuery(
+                "SELECT m FROM MeetingRoom m ").getResultList();
+    }
+    public MeetingRoom findById(int id){
+        return find(id);
+    }
+
+    public List<MeetingRoom>getAllAvailableRooms(){
+        return em.createQuery("SELECT m FROM MeetingRoom m WHERE m.isAvailable = 1", MeetingRoom.class)
+                .getResultList();
     }
 }

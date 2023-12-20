@@ -1,10 +1,13 @@
 package meeting.room.system.service;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import meeting.room.system.dao.MeetingRoomDao;
 import meeting.room.system.dao.ReservationDao;
+import meeting.room.system.dao.UserDao;
 import meeting.room.system.model.MeetingRoom;
 import meeting.room.system.model.Reservation;
 import meeting.room.system.model.User;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,30 +21,24 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SpringBootTest
 @Transactional
 public class ReservationSystemTest {
+
     @Autowired
     private ReservationDao reservationDao;
     @Autowired
     private ReservationSystemService reservationSystemService;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private MeetingRoomDao meetingRoomDao;
 
     @Test
     public void approveReservationTest() {
-        ReservationSystemService reservationSystemService = new ReservationSystemService();
         Reservation reservation = new Reservation();
-        User user = new User();
 
-        MeetingRoom meetingRoom = new MeetingRoom();
-        meetingRoom.setRoomName("Malibu");
-        meetingRoom.setCapacity(2);
-        meetingRoom.setAvailable(true);
-
-        user.setFirstName("Martina");
-        user.setEmail("kat@dmitr.com");
-        user.setLastName("Novotna");
-        user.setDateOfBirth(Date.valueOf("2009-05-04"));
-        user.setPassword("12345");
-
-        reservation.setStartTime(LocalDateTime.now());
-        reservation.setEndTime(LocalDateTime.now().plusHours(3));
+        MeetingRoom meetingRoom = meetingRoomDao.findById(1);
+        User user = userDao.findByUsername("merlin1a");
+        reservation.setStartTime(LocalDateTime.now().plusHours(5));
+        reservation.setEndTime(LocalDateTime.now().plusHours(10));
         reservation.setMeetingRoom(meetingRoom);
         reservation.setReservationTime(LocalDateTime.now());
         reservation.setUser(user);
@@ -53,22 +50,16 @@ public class ReservationSystemTest {
         Reservation reservation = new Reservation();
         User user = new User();
 
-        MeetingRoom meetingRoom = new MeetingRoom();
-        meetingRoom.setRoomName("Kate");
-        meetingRoom.setCapacity(2);
-        meetingRoom.setAvailable(true);
+       MeetingRoom meetingRoom = meetingRoomDao.findById(1);
 
-        user.setFirstName("Martina");
-        user.setEmail("kat@dmitr.com");
-        user.setLastName("Novotna");
-        user.setDateOfBirth(Date.valueOf("2009-05-04"));
-        user.setPassword("12345");
+       User user1 = userDao.findByUsername("merlin1a");
 
         reservation.setStartTime(LocalDateTime.now().plusHours(3));
         reservation.setEndTime(LocalDateTime.now());
         reservation.setMeetingRoom(meetingRoom);
         reservation.setReservationTime(LocalDateTime.now().plusHours(5));
-        reservation.setUser(user);
+        reservation.setUser(user1);
+        reservation.setStatus("Reserved");
 
         reservationDao.persist(reservation);
         int reservationID = reservation.getId();

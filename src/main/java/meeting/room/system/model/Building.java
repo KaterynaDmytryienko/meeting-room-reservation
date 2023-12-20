@@ -18,7 +18,11 @@ public class Building extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
+
+    @Column(nullable = false, name = "building_name")
     private String buildingName;
+
+    @Column(nullable = false, name = "building_capacity")
     private int buildingCapacity;
 
     @OneToMany
