@@ -1,5 +1,4 @@
 package meeting.room.system.service.security;
-
 import meeting.room.system.dao.UserDao;
 import meeting.room.system.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
